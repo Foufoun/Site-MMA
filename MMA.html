@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥊 MMA PRO TRAINING | Rayan 94 AKA Frank Lucas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d32f2f;
+            --secondary: #1976d2;
+            --dark: #0a0a0a;
+            --light: #f5f5f5;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --gold: #ffd700;
+            --particle-color: rgba(211, 47, 47, 0.7);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        /* Particules JS */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        /* Message de sensibilisation */
+        .warning-message {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .warning-content {
+            background: rgba(20, 20, 20, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .warning-content h2 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .warning-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .warning-content button {
+            display: block;
+            margin: 1.5rem auto 0;
+            background: var(--primary);
+        }
+        /* Menu fixe */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(211, 47, 47, 0.3);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+            cursor: pointer;
+        }
+        .logo i {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
+            background: rgba(211, 47, 47, 0.2);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        /* Conteneur principal */
+        .container {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 2rem;
+        }
+        /* Section d'introduction */
+        .intro {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(15, 15, 15, 0.8);
+            border-radius: 15px;
+            border: 1px solid rgba(211, 47, 47, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .intro::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(211, 47, 47, 0.1) 0%,
+                rgba(25, 118, 210, 0.1) 100%
+            );
+            transform: rotate(30deg);
+        }
+        .intro h1 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .intro p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        /* Sélecteur de séries */
+        .series-selector {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        .series-selector input {
+            padding: 0.7rem;
+            width: 60px;
+            text-align: center;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1.1rem;
+        }
+        /* Boutons stylisés */
+        button {
+            background: linear-gradient(145deg, var(--primary), #b71c1c);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(145deg, #b71c1c, var(--primary));
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        button i {
+            margin-right: 0.5rem;
+        }
+        /* Catégories d'entraînement */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .category {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(211, 47, 47, 0.1) 0%,
+                rgba(25, 118, 210, 0.1) 100%
+            );
+            z-index: 0;
+        }
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background: rgba(30, 30, 30, 0.9);
+        }
+        .category h3 {
+            color: var(--gold);
+            font-size: 1.4rem;
+            position: relative;
+            z-index: 1;
+        }
+        .category img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        /* Section entraînement */
+        .training-section {
+            display: none;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--primary);
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .training-section.active {
+            display: block;
+        }
+        /* Message de motivation */
+        .motivation {
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--success);
+            font-size: 1.3rem;
+            padding: 1rem;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+        }
+        /* Affichage de l'exercice */
+        .exercise-display {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+        .exercise-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+        }
+        #exercise-name {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        #exercise-description {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        #exercise-time {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 1.5rem 0;
+            text-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+        }
+        .exercise-video {
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .exercise-video iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+        /* Contrôles de l'exercice */
+        .exercise-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        /* Barre de progression */
+        .progress-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .progress-bar {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 1rem 0;
+            height: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        .progress {
+            background: linear-gradient(90deg, var(--success), var(--gold));
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .stat {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            width: 48%;
+        }
+        .stat h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .stat p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--success);
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(10, 10, 10, 0.9);
+            color: var(--gold);
+            margin-top: 3rem;
+            border-top: 1px solid var(--primary);
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .categories {
+                grid-template-columns: 1fr;
+            }
+            .exercise-video iframe {
+                height: 200px;
+            }
+            #exercise-time {
+                font-size: 2.5rem;
+            }
+            nav {
+                flex-direction: column;
+                padding: 0.8rem;
+            }
+            .nav-links {
+                margin-top: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Message de sensibilisation -->
+    <div class="warning-message" id="warningMessage">
+        <div class="warning-content">
+            <h2>⚠️ AVERTISSEMENT DE FRANK LUCAS</h2>
+            <p>Ce site est conçu pour t'aider à t'entraîner comme un <strong>vrai guerrier</strong>, mais <strong>ta sécurité est TA responsabilité</strong>.</p>
+            <p>✅ <strong>Échauffe-toi</strong> toujours avant de commencer.</p>
+            <p>✅ <strong>Hydrate-toi</strong> comme un pro.</p>
+            <p>✅ <strong>Arrête-toi</strong> si tu sens une douleur.</p>
+            <p>✅ <strong>Consulte un coach</strong> si tu débutes.</p>
+            <p>Ce site a été créé par <strong>Rayan 94 AKA Frank Lucas</strong>. Ici, on ne rigole pas avec l'entraînement.</p>
+            <button onclick="closeWarning()">J'AI COMPRIS, C'EST PARTI !</button>
+        </div>
+    </div>
+
+    <!-- Particules JS -->
+    <div id="particles-js"></div>
+
+    <!-- Menu fixe -->
+    <nav>
+        <div class="logo" onclick="showSection('intro')">
+            <i class="fas fa-fist-raised"></i>
+            <span>MMA PRO TRAINING</span>
+        </div>
+        <div class="nav-links">
+            <a onclick="showSection('intro')"><i class="fas fa-home"></i> Accueil</a>
+            <a onclick="showSection('training')"><i class="fas fa-dumbbell"></i> Entraînement</a>
+            <a onclick="showSection('about')"><i class="fas fa-user-secret"></i> À propos</a>
+        </div>
+    </nav>
+
+    <!-- Conteneur principal -->
+    <div class="container">
+        <!-- Page d'accueil -->
+        <section id="intro" class="intro training-section active">
+            <h1>DEVIENS UNE MACHINE DE GUERRE</h1>
+            <p>Prépare-toi à repousser tes limites avec des entraînements conçus par des pros, pour des pros. <strong>Sélectionne ton nombre de séries et c'est parti !</strong></p>
+            <div class="series-selector">
+                <label for="series">Nombre de séries :</label>
+                <input type="number" id="series" min="1" max="10" value="3">
+            </div>
+            <button onclick="startTraining()"><i class="fas fa-fire"></i> COMMENCER L'ENTRAÎNEMENT</button>
+            <div class="stats">
+                <div class="stat">
+                    <h3>🏆 OBJECTIF</h3>
+                    <p id="goal-series">3 séries</p>
+                </div>
+                <div class="stat">
+                    <h3>🔥 CALORIES</h3>
+                    <p id="calories">0 kcal</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section entraînement -->
+        <section id="training" class="training-section">
+            <h2><i class="fas fa-skull-crossbones"></i> CHOISIS TON ENTRAÎNEMENT</h2>
+            <div class="categories">
+                <div class="category" onclick="selectCategory('warmup')">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Échauffement">
+                    <h3>🔥 ÉCHAUFFEMENT</h3>
+                </div>
+                <div class="category" onclick="selectCategory('strength')">
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Renforcement">
+                    <h3>💪 RENFORCEMENT</h3>
+                </div>
+                <div class="category" onclick="selectCategory('boxing')">
+                    <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Boxe">
+                    <h3>🥊 BOXE / KICKBOXING</h3>
+                </div>
+                <div class="category" onclick="selectCategory('grappling')">
+                    <img src="https://images.unsplash.com/photo-1605296867299-38354084ab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Grappling">
+                    <h3>🤼 GRAPPLING / BJJ</h3>
+                </div>
+                <div class="category" onclick="selectCategory('circuit')">
+                    <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Circuit">
+                    <h3>🔄 CIRCUIT COMBINÉ</h3>
+                </div>
+                <div class="category" onclick="selectCategory('recovery')">
+                    <img src="https://images.unsplash.com/photo-1575648439595-504462b74756?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Récupération">
+                    <h3>🧘 RÉCUPÉRATION</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section exercice -->
+        <section id="exercise-section" class="training-section">
+            <div class="motivation" id="motivation-message"></div>
+            <div class="exercise-display">
+                <div id="exercise-name">PRÊT À EN DÉCOUDRE ?</div>
+                <div id="exercise-description">Sélectionne une catégorie pour commencer ton entraînement.</div>
+                <div class="exercise-video" id="exercise-video"></div>
+                <div id="exercise-time">03:00</div>
+                <div class="exercise-controls">
+                    <button id="start-btn" onclick="startExercise()"><i class="fas fa-play"></i> DÉMARRER</button>
+                    <button id="next-btn" onclick="nextExercise()" class="success"><i class="fas fa-forward"></i> SUIVANT</button>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div>PROGRESSION :</div>
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar"></div>
+                </div>
+                <div id="progress-text">0/0 EXERCICES TERMINÉS</div>
+            </div>
+        </section>
+
+        <!-- Section À propos -->
+        <section id="about" class="training-section">
+            <h2><i class="fas fa-user-secret"></i> À PROPOS DE NOUS</h2>
+            <div style="text-align: center; margin: 2rem 0;">
+                <img src="https://images.unsplash.com/photo-1630865249607-6b09d1eb0d0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Rayan 94" style="width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--gold);">
+                <h3 style="margin-top: 1rem; color: var(--gold);">CRÉÉ PAR RAYAN 94 AKA FRANK LUCAS</h3>
+                <p style="max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                    Ce site est né de la passion pour le MMA et le développement. Ici, pas de place pour la médiocrité.
+                    Chaque exercice, chaque seconde compte. Que tu sois débutant ou pro, ce site est ton allié pour
+                    <strong>devenir une machine de guerre</strong>.
+                </p>
+                <p style="margin-top: 1rem; font-style: italic;">
+                    "La discipline bat le talent quand le talent ne travaille pas." — Frank Lucas
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 <strong>MMA PRO TRAINING</strong> | <strong>FAIT PAR RAYAN 94 AKA FRANK LUCAS</strong> | TOUS DROITS RÉSERVÉS</p>
+        <div style="margin-top: 1rem;">
+            <a href="#" style="color: var(--gold); margin: 0 0.5rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: var(--gold); margin: 0 0.5rem;"><i class="fab fa-youtube"></i></a>
+            <a href="#" style="color: var(--gold); margin: 0 0.5rem;"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Sons -->
+    <audio id="startSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" preload="auto"></audio>
+    <audio id="endSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" preload="auto"></audio>
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
+
+    <script>
+        // Initialisation des particules
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#d32f2f" },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#d32f2f", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' }
+                }
+            }
+        });
+
+        // Données des exercices (avec vidéos YouTube)
+        const exercises = {
+            warmup: [
+                {
+                    name: "CORDE À SAUTER",
+                    time: 180,
+                    description: "Échauffe ton cardio et améliore ta coordination. Saute en restant sur la pointe des pieds.",
+                    video: "https://www.youtube.com/embed/6xT12cgHj7o"
+                },
+                {
+                    name: "JUMPING JACKS",
+                    time: 120,
+                    description: "Active tout ton corps. Saute en écartant bras et jambes simultanément.",
+                    video: "https://www.youtube.com/embed/c4DAnQ6Dq28"
+                },
+                {
+                    name: "ROTATIONS ARTICULAIRES",
+                    time: 180,
+                    description: "Prépare tes articulations : poignets, chevilles, épaules et hanches. 30 secondes par articulation.",
+                    video: "https://www.youtube.com/embed/8lYq6D7QvVA"
+                },
+                {
+                    name: "FENTES MARCHÉES",
+                    time: 120,
+                    description: "Échauffe tes jambes et ton équilibre. Alterne les jambes à chaque pas.",
+                    video: "https://www.youtube.com/embed/QOVaH6J9xTk"
+                }
+            ],
+            strength: [
+                {
+                    name: "POMPES",
+                    time: 0,
+                    reps: "3x10-15",
+                    description: "Garde le dos droit et descends jusqu'à frôler le sol. Varier les écarts de mains pour cibler différents muscles.",
+                    video: "https://www.youtube.com/embed/IODxDxX7oi4"
+                },
+                {
+                    name: "SQUATS",
+                    time: 0,
+                    reps: "3x15-20",
+                    description: "Pieds écartés à la largeur des épaules. Descends comme pour t'asseoir, garde les talons au sol.",
+                    video: "https://www.youtube.com/embed/UltWZ3XKpks"
+                },
+                {
+                    name: "FENTES AVANT",
+                    time: 0,
+                    reps: "3x10 par jambe",
+                    description: "Garde le genou arrière près du sol et le torse droit. Alterne les jambes.",
+                    video: "https://www.youtube.com/embed/QOVaH6J9xTk"
+                },
+                {
+                    name: "PLANCHE",
+                    time: 45,
+                    reps: "3x",
+                    description: "Maintiens la position en gainant au maximum. Ne laisse pas les hanches s'affaisser.",
+                    video: "https://www.youtube.com/embed=pKf8N5vFbOR"
+                }
+            ],
+            boxing: [
+                {
+                    name: "SHADOWBOXING (JAB/CROSS)",
+                    time: 180,
+                    description: "Travaille tes enchaînements de base. Reste léger sur tes appuis et garde les poings près du visage.",
+                    video: "https://www.youtube.com/embed/7VcLrwMv5Wc"
+                },
+                {
+                    name: "COMBINAISONS (JAB-CROSS-ROUNDHOUSE)",
+                    time: 180,
+                    description: "Enchaîne jab, cross et roundhouse kick. Concentre-toi sur la vitesse et la précision.",
+                    video: "https://www.youtube.com/embed/7VcLrwMv5Wc"
+                },
+                {
+                    name: "TRAVAIL SUR SAC",
+                    time: 240,
+                    description: "Frappe le sac avec puissance et contrôle. Alterne coups de poing et de pied.",
+                    video: "https://www.youtube.com/embed/hHWpXlgR6Rg"
+                }
+            ],
+            grappling: [
+                {
+                    name: "SHRIMPING (MOUVEMENTS DE BASE)",
+                    time: 180,
+                    description: "Déplace-toi au sol en utilisant tes hanches et tes talons. Garde les coudes serrés.",
+                    video: "https://www.youtube.com/embed/5PjlXqFy5aE"
+                },
+                {
+                    name: "POSITIONS DOMINANTES",
+                    time: 180,
+                    description: "Travaille le contrôle en position montée ou en garde. Passe d'une position à l'autre.",
+                    video: "https://www.youtube.com/embed/5PjlXqFy5aE"
+                },
+                {
+                    name: "DRILL CLÉS DE BRAS",
+                    time: 240,
+                    description: "Répète les mouvements de clé de bras sur un partenaire ou un sac. Précision avant puissance.",
+                    video: "https://www.youtube.com/embed/ZngXF6XUqkE"
+                }
+            ],
+            circuit: [
+                {
+                    name: "BURPEES",
+                    time: 30,
+                    description: "Un mouvement complet pour explosivité et endurance. Saute en l'air à la fin !",
+                    video: "https://www.youtube.com/embed/8PUMX5w0nX0"
+                },
+                {
+                    name: "MOUNTAIN CLIMBERS",
+                    time: 30,
+                    description: "Course sur place en position de planche. Active bien tes abdos.",
+                    video: "https://www.youtube.com/embed/uYN8YKJXDl0"
+                },
+                {
+                    name: "SHADOWBOXING RAPIDE",
+                    time: 30,
+                    description: "Frappe vite et précis en restant mobile. Imagine un adversaire devant toi.",
+                    video: "https://www.youtube.com/embed/7VcLrwMv5Wc"
+                },
+                {
+                    name: "KICKS (FRONT/LOW)",
+                    time: 30,
+                    description: "Travaille tes front kicks et low kicks. Garde ton équilibre et frappe avec le tibia.",
+                    video: "https://www.youtube.com/embed/hHWpXlgR6Rg"
+                }
+            ],
+            recovery: [
+                {
+                    name: "ÉTIREMENTS (JAMBES/BRAS/DOS)",
+                    time: 300,
+                    description: "Étire chaque groupe musculaire pendant 20-30 secondes. Respire profondément.",
+                    video: "https://www.youtube.com/embed/4pKly2JojMw"
+                },
+                {
+                    name: "RESPIRATION PROFONDE",
+                    time: 180,
+                    description: "Allonge-toi sur le dos, les yeux fermés. Concentre-toi sur ta respiration.",
+                    video: "https://www.youtube.com/embed/Kp9CZLQ_eIo"
+                }
+            ]
+        };
+
+        // Messages de motivation
+        const motivations = {
+            warmup: "⚡ AVANT TOUT EFFORT, PRÉPARE TON CORPS ET TON ESPRIT POUR ÊTRE AU TOP ! Un bon échauffement = moins de blessures.",
+            strength: "💪 LA FORCE VIENT AVEC LA RÉPÉTITION ! Chaque répétition compte : donne tout, mais garde la technique.",
+            boxing: "🥊 EN MMA, LA PRÉCISION BAT TOUJOURS LA PUISSANCE BRUTE. Travaille ta technique comme un pro.",
+            grappling: "🤼 AU SOL, LA STRATÉGIE PRIME SUR LA FORCE. Reste fluide, contrôlé et anticipe chaque mouvement.",
+            circuit: "🔥 C'EST L'HEURE DU CIRCUIT INFERNAL ! Pousse tes limites, mais écoute ton corps. Repos court = résultats longs.",
+            recovery: "🧘 LA RÉCUPÉRATION FAIT PARTIE DE L'ENTRAÎNEMENT. Étire-toi, hydrate-toi et sois fier de ton effort !"
+        };
+
+        // Variables globales
+        let currentCategory = null;
+        let currentExercises = [];
+        let currentExerciseIndex = 0;
+        let currentSeries = 0;
+        let totalSeries = 3;
+        let timer = null;
+        let timeLeft = 0;
+        let isRunning = false;
+        let caloriesBurned = 0;
+
+        // Jouer un son
+        function playSound(id) {
+            const sound = document.getElementById(id);
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Son bloqué :", e));
+        }
+
+        // Fermer le message de sensibilisation
+        function closeWarning() {
+            playSound('clickSound');
+            document.getElementById('warningMessage').style.display = 'none';
+        }
+
+        // Afficher une section
+        function showSection(sectionId) {
+            playSound('clickSound');
+            document.querySelectorAll('.training-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Démarrer l'entraînement
+        function startTraining() {
+            playSound('startSound');
+            totalSeries = parseInt(document.getElementById('series').value) || 3;
+            document.getElementById('goal-series').textContent = `${totalSeries} séries`;
+            showSection('training');
+        }
+
+        // Sélectionner une catégorie
+        function selectCategory(category) {
+            playSound('clickSound');
+            currentCategory = category;
+            currentExercises = exercises[category];
+            currentExerciseIndex = 0;
+            currentSeries = 0;
+            caloriesBurned = 0;
+            document.getElementById('calories').textContent = '0 kcal';
+
+            document.getElementById('motivation-message').textContent = motivations[category];
+            showExercise();
+            showSection('exercise-section');
+        }
+
+        // Afficher un exercice
+        function showExercise() {
+            if (currentExerciseIndex >= currentExercises.length) {
+                currentSeries++;
+                if (currentSeries < totalSeries) {
+                    currentExerciseIndex = 0;
+                    setTimeout(() => {
+                        playSound('endSound');
+                        alert(`🔥 Série ${currentSeries}/${totalSeries} terminée ! Repos de 30 secondes.`);
+                        showExercise();
+                    }, 1000);
+                    return;
+                } else {
+                    setTimeout(() => {
+                        playSound('endSound');
+                        alert(`🎉 FÉLICITATIONS ! Tu as terminé ${totalSeries} séries de ${currentCategory} !\n\nCalories brûlées : ~${caloriesBurned} kcal`);
+                        showSection('training');
+                    }, 1000);
+                    return;
+                }
+            }
+
+            const exercise = currentExercises[currentExerciseIndex];
+            document.getElementById('exercise-name').textContent = exercise.name;
+            document.getElementById('exercise-description').textContent = exercise.description;
+
+            if (exercise.video) {
+                document.getElementById('exercise-video').innerHTML = `
+                    <iframe src="${exercise.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                `;
+            } else {
+                document.getElementById('exercise-video').innerHTML = '';
+            }
+
+            if (exercise.time > 0) {
+                document.getElementById('exercise-time').textContent = formatTime(exercise.time);
+                timeLeft = exercise.time;
+            } else {
+                document.getElementById('exercise-time').textContent = exercise.reps;
+            }
+
+            updateProgress();
+            updateCalories();
+        }
+
+        // Mettre à jour les calories brûlées
+        function updateCalories() {
+            const exercise = currentExercises[currentExerciseIndex];
+            if (exercise.time > 0) {
+                caloriesBurned += Math.round(exercise.time / 60 * 10); // ~10 kcal/min
+            } else {
+                caloriesBurned += 15; // ~15 kcal par exercice sans temps
+            }
+            document.getElementById('calories').textContent = `${caloriesBurned} kcal`;
+        }
+
+        // Mettre à jour la progression
+        function updateProgress() {
+            const progress = (currentExerciseIndex / currentExercises.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent =
+                `${currentExerciseIndex}/${currentExercises.length} exercices (Série ${currentSeries + 1}/${totalSeries})`;
+        }
+
+        // Formater le temps (secondes → MM:SS)
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Démarrer le minuteur
+        function startExercise() {
+            if (isRunning) return;
+            playSound('startSound');
+
+            const exercise = currentExercises[currentExerciseIndex];
+            if (exercise.time <= 0) {
+                alert("⏱️ Cet exercice n'a pas de temps défini. Passe au suivant manuellement.");
+                return;
+            }
+
+            isRunning = true;
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('exercise-time').textContent = formatTime(timeLeft);
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    isRunning = false;
+                    playSound('endSound');
+                    alert("⏰ Temps écoulé ! Repos 30 secondes avant le prochain exercice.");
+                    setTimeout(nextExercise, 30000);
+                }
+            }, 1000);
+        }
+
+        // Exercice suivant
+        function nextExercise() {
+            if (isRunning) {
+                clearInterval(timer);
+                isRunning = false;
+            }
+            playSound('clickSound');
+            currentExerciseIndex++;
+            showExercise();
+        }
+
+        // Afficher le message de sensibilisation au chargement
+        window.addEventListener('load', () => {
+            document.getElementById('warningMessage').style.display = 'flex';
+        });
+    </script>
+</body>
+</html>
